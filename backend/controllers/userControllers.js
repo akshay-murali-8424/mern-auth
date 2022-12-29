@@ -14,7 +14,7 @@ export const verifyLogin =asyncHandler( async(req, res) => {
   } 
   const isPasswordCorrect=await bcrypt.compare(password,user.password)
   if(!isPasswordCorrect){
-    throw new AppError("Sorry, your password was incorrect. Please double-check your password")
+    throw new AppError("Sorry, your password was incorrect. Please double-check your password",401)
   }
   const token = jwt.sign({userId:user._id}, process.env.JWT_SECRET, {
     expiresIn: "2d",

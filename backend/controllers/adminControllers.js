@@ -21,7 +21,7 @@ export const verifyLogin = asyncHandler(async (req, res) => {
     res.json({
         status: "success",
         message: "admin verified",
-        token
+        token,
     })
 })
 

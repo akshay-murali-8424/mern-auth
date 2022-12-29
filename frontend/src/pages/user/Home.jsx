@@ -1,6 +1,9 @@
 import { Box } from "@mui/material";
 import React from "react";
+import { useSelector } from "react-redux";
+import { Navigate } from "react-router-dom";
 import NavBar from "../../components/userHeader/userHeader";
+import { selectUserAuth } from "../../redux/Features/reducers/userAuthSlice";
 
 function Home() {
   const myStyle = {
@@ -11,12 +14,19 @@ function Home() {
     backgroundSize:"cover"
    
   };
-  return (
-    <>
-      <NavBar />
-      <Box sx={myStyle} />
-    </>
-  );
+  const data=useSelector(selectUserAuth)
+  if(data.token){
+    return (
+      <>
+        <NavBar />
+        <Box sx={myStyle} />
+      </>
+    );
+  }else{
+    return(
+     <Navigate to='/login'/>
+    )
+  }
 }
 
 export default Home;

@@ -8,8 +8,6 @@ router.post('/login',userController.verifyLogin)
 
 router.post('/register',userController.register)
 
-router.get('/home',userAuthentication)
-
 router.patch('/set-profile-picture',uploadProfilePicture,userController.setProfilePicture)
 
 router.post('/logout')
