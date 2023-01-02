@@ -16,10 +16,8 @@ export const userAuthentication=asyncHandler(async(req,res,next)=>{
       process.env.JWT_SECRET
     );
     if(decoded){
-      res.json({
-        status:"authorized user",
-        decoded
-      })
+      req.userId=decoded.userId;
+      return next();
     }else{
       throw new AppError("unauthorized user",401)
     }
@@ -38,7 +36,6 @@ export const adminAuthentication=asyncHandler(async(req,res,next)=>{
       process.env.JWT_SECRET
     );
     if(decoded){
-      req.admin=decoded;
       return next();  
     }else{
       throw new AppError("unauthorized admin",401)

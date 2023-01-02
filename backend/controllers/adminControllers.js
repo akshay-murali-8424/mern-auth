@@ -52,12 +52,11 @@ export const addNewUser = asyncHandler(async (req, res) => {
 })
 
 export const editUser = asyncHandler(async(req,res)=>{
-    let {userId,name,email}=req.body;
-    console.log(userId,name,email)
+    const userId=req.params.id
+    let {name,email}=req.body;
     email = email.toLowerCase();
     const isExistingEmail = await User.findOne({ email })
     const user = await User.findById(userId)
-    console.log(user)
     if (isExistingEmail&&user.email!=email) {
         throw new AppError("existing email", 401)
     }
@@ -69,7 +68,7 @@ export const editUser = asyncHandler(async(req,res)=>{
 })
 
 export const deleteUser = asyncHandler(async(req,res)=>{
-    const {userId} = req.body;
+    const userId = req.params.id;
     await User.findByIdAndDelete(userId)
     res.json({
         status:"success",

@@ -11,8 +11,8 @@ router.get('/get-users',adminAuthentication,adminController.getAllUsers)
 
 router.post('/add-user',adminAuthentication,adminController.addNewUser)
 
-router.patch('/edit-user',adminAuthentication,adminController.editUser)
+router.patch('/edit-user/:id',adminAuthentication,adminController.editUser)
 
-router.delete('/delete-user',adminAuthentication,adminController.deleteUser)
+router.delete('/delete-user/:id',adminAuthentication,adminController.deleteUser)
 
 export default router;

@@ -16,7 +16,7 @@ const server = express();
 
 server.use(cors({ origin: "http://localhost:3000" }));
 server.use(express.json());
-server.use(express.urlencoded({ extended: false }));
+server.use(express.urlencoded({ extended: true }));
 server.use(cookieParser());
 
 server.use('/api', userRouter);

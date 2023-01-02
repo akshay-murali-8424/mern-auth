@@ -8,7 +8,9 @@ router.post('/login',userController.verifyLogin)
 
 router.post('/register',userController.register)
 
-router.patch('/set-profile-picture',uploadProfilePicture,userController.setProfilePicture)
+router.get('/get-user',userAuthentication,userController.getUser)
+
+router.patch('/set-profile-picture/:id',userAuthentication,uploadProfilePicture,userController.setProfilePicture)
 
 router.post('/logout')
 

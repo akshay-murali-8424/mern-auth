@@ -47,6 +47,7 @@ export default function UserLogin() {
         navigate('/')
       }
     }catch(err){
+      console.log(err);
       setLoginError(err.data.message)
     }
   };

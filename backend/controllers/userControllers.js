@@ -56,13 +56,31 @@ export const register = asyncHandler(async (req, res) => {
 })
 
 export const setProfilePicture =asyncHandler(async(req,res)=>{
-  const {userId}=req.body
+  const userId = req.params.id
+  console.log('file '+req.file)
+  console.log('files'+req.files)
+  // console.log(req.file.path)
+  
+  console.log(userId)
   const {url}= await cloudinary.uploader.upload(req.file.path)
+  console.log(url)
   await User.findByIdAndUpdate(userId,{$set:{picture:url}})
   res.json({
     status:"success",
     message:"profile picture updated",
   })
 })
+
+export const getUser = asyncHandler(async(req,res)=>{
+  const {userId}=req
+  const userData=await User.findById(userId)
+  res.json({
+    status:"success",
+    userData
+  })
+})
+
+
+
 
 

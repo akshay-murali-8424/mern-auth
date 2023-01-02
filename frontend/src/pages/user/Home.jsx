@@ -3,6 +3,8 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 import NavBar from "../../components/userHeader/userHeader";
+import UserProfileCard from "../../components/userProfileCard/UserProfileCard";
+import { useGetUserDataQuery } from "../../redux/Features/api/apiSlice";
 import { selectUserAuth } from "../../redux/Features/reducers/userAuthSlice";
 
 function Home() {
@@ -14,12 +16,19 @@ function Home() {
     backgroundSize:"cover"
    
   };
-  const data=useSelector(selectUserAuth)
-  if(data.token){
+  const user=useSelector(selectUserAuth)
+  let userData={}
+  if(user.token){
+    const { data, isLoading, isFetching, isSuccess, isError, error, refetch } = useGetUserDataQuery()
+    if(isSuccess){
+       userData=data.userData
+     }
     return (
       <>
-        <NavBar />
-        <Box sx={myStyle} />
+        <NavBar picture={userData.picture}/>
+        <UserProfileCard name={userData.name} email={userData.email} picture={userData.picture} id={userData._id}/>
+        {/* <Box sx={myStyle} >
+          </Box> */}
       </>
     );
   }else{

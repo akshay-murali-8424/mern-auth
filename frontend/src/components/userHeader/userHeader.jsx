@@ -14,12 +14,14 @@ import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import { useDispatch } from "react-redux";
 import { deleteToken } from "../../redux/Features/reducers/userAuthSlice";
+import { useNavigate } from "react-router-dom";
 
 
 const pages = [];
 
-function ResponsiveAppBar() {
+function ResponsiveAppBar({picture}) {
   const dispatch = useDispatch()
+  const navigate=useNavigate()
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -41,6 +43,7 @@ function ResponsiveAppBar() {
   const handleLogOut=()=>{
     console.log("dcbjdb");
     dispatch(deleteToken())
+    navigate('/login')
   }
   return (
     <AppBar
@@ -65,7 +68,6 @@ function ResponsiveAppBar() {
               textDecoration: "none",
             }}
           >
-            LOGO
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -138,7 +140,7 @@ function ResponsiveAppBar() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt="Remy Sharp" src={picture} />
               </IconButton>
             </Tooltip>
             <Menu
