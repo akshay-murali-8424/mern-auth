@@ -6,6 +6,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { useUserRegisterMutation } from '../../redux/Features/api/apiSlice';
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const schema = yup.object().shape({
   name: yup.string().required().min(6).matches(/^[a-zA-Z][a-zA-Z ]+[a-zA-Z]*$/,"enter a valid name"),
@@ -27,15 +29,22 @@ export default function AddUserModal() {
   });
   const [show, setShow] = useState(false);
   const [addError,setAddError]=useState('')
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    errors.name=''
+    errors.email=''
+    errors.password=''
+    errors.confirmPassword=''
+    setAddError('')
+    setShow(false);
+  }
   const handleShow = () => setShow(true);
   const [registerUser]=useUserRegisterMutation()
 
   const submitHandler=async(data)=>{
     try{
       const res = await registerUser(data).unwrap()
-      console.log(res)
       if(res.status==="success"){
+         toast.success(`new user added: ${data.name}`)
          handleClose()
       }
     }catch(err){

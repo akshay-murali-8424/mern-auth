@@ -41,7 +41,6 @@ function ResponsiveAppBar({picture}) {
   };
 
   const handleLogOut=()=>{
-    console.log("dcbjdb");
     dispatch(deleteToken())
     navigate('/login')
   }
@@ -159,9 +158,7 @@ function ResponsiveAppBar({picture}) {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              <MenuItem onClick={handleCloseUserMenu}>
-                <Typography textAlign="center">Profile</Typography>
-              </MenuItem>
+             
               <MenuItem onClick={handleLogOut}>
                 <Typography textAlign="center">Logout</Typography>
               </MenuItem>

@@ -69,10 +69,10 @@ export const apiSlice = createApi({
         }),
 
         adminEditUser: builder.mutation({
-            query: ({ formData, id }) => ({
+            query: ({ data, id }) => ({
                 url: `/admin/edit-user/${id}`,
                 method: 'PATCH',
-                body: formData
+                body: data
             }),
             invalidatesTags: ['admin', 'user']
         }),

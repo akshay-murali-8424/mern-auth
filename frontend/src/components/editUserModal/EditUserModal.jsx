@@ -8,6 +8,8 @@ import { useForm } from "react-hook-form";
 import { useAdminEditUserMutation} from '../../redux/Features/api/apiSlice';
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import { ButtonBase } from '@mui/material';
+import {  toast, ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const schema = yup.object().shape({
   name: yup.string().required().min(6).matches(/^[a-zA-Z][a-zA-Z ]+[a-zA-Z]*$/,"enter a valid name"),
@@ -16,6 +18,18 @@ const schema = yup.object().shape({
 
 
 export default function EditUserModal({name,email,id}) {
+  <ToastContainer
+position="top-right"
+autoClose={5000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="light"
+/>
   const {
     register,
     handleSubmit,
@@ -30,6 +44,7 @@ export default function EditUserModal({name,email,id}) {
   const [updateUser] = useAdminEditUserMutation()
 
   const submitHandler=async(data)=>{
+    
     try{
       const res = await updateUser({data,id}).unwrap()
       if(res.status==="success"){
