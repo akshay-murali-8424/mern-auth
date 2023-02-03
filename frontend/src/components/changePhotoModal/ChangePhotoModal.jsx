@@ -6,6 +6,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useForm } from "react-hook-form";
 import { useSetProfilePictureMutation} from '../../redux/Features/api/apiSlice';
+import { CircularProgress } from '@mui/material';
+import { toast } from 'react-toastify';
 
 
 const SUPPORTED_FORMATS = [
@@ -35,6 +37,7 @@ export default function ChangePhotoModal({id}) {
     resolver: yupResolver(schema),
   });
   const [show, setShow] = useState(false);
+  const [isLoading,setIsLoading]=useState(false);
   const handleClose = () => {
     setSubmitError('')
     setShow(false);
@@ -45,14 +48,18 @@ export default function ChangePhotoModal({id}) {
 
   const submitHandler = async (data) => {
     try {
+      setIsLoading(true)
       const { profilePic } = data;
       const formData = new FormData();
       formData.append("profilePic", profilePic[0]);
       const res = await changePicture({ formData, id }).unwrap();
+      setIsLoading(false)
       if(res.status==="success"){
+        toast.success("profile photo updated")
         handleClose()
       }
     } catch (err) {
+      setIsLoading(false)
        setSubmitError(err.data.message)
     }
   };
@@ -73,7 +80,7 @@ export default function ChangePhotoModal({id}) {
         <Modal.Body>
           <Form onSubmit={handleSubmit(submitHandler)}>
             <Form.Group className="mb-3" >
-              <Form.Label>Profile Picture</Form.Label>
+              <Form.Label>Profile Picturecgadcgaskjdgaskjgdksja</Form.Label>
               <Form.Control
                 type="file"
                 id='filepic'
@@ -85,7 +92,7 @@ export default function ChangePhotoModal({id}) {
             <Modal.Footer>
             
             <Button variant="primary" type='submit'>
-            Submit
+              {isLoading? <CircularProgress color='secondary'/>:"Submit"}
           </Button>
           <Button variant="secondary" onClick={handleClose}>
             Close

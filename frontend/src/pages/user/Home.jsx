@@ -1,4 +1,5 @@
 import { Box } from "@mui/material";
+import { margin } from "@mui/system";
 import React from "react";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
@@ -13,8 +14,7 @@ function Home() {
     backgroundColor: "#000",
     height: "100vh",
     fontSize: "50px",
-    backgroundSize:"cover"
-   
+    backgroundSize:"cover", 
   };
   const user=useSelector(selectUserAuth)
   let userData={}
@@ -24,12 +24,13 @@ function Home() {
        userData=data.userData
      }
     return (
-      <>
+     <>
+       
         <NavBar picture={userData.picture}/>
         <UserProfileCard name={userData.name} email={userData.email} picture={userData.picture} id={userData._id}/>
-        {/* <Box sx={myStyle} >
-          </Box> */}
-      </>
+          
+     </>
+   
     );
   }else{
     return(
