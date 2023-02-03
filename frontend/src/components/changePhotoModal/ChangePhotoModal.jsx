@@ -80,7 +80,7 @@ export default function ChangePhotoModal({id}) {
         <Modal.Body>
           <Form onSubmit={handleSubmit(submitHandler)}>
             <Form.Group className="mb-3" >
-              <Form.Label>Profile Picturecgadcgaskjdgaskjgdksja</Form.Label>
+              <Form.Label>Profile Picture</Form.Label>
               <Form.Control
                 type="file"
                 id='filepic'
